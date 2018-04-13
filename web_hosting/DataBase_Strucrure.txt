@@ -1,0 +1,11 @@
+-------------------- ACCESS --------------------
+$server = "localhost";
+$username = "z92876se__base";
+$password = "HeL1UVYS";
+$database = "z92876se__base";
+-------------------- STRUCTURE --------------------
+---------- users_list
+id              int(11)     AI
+login           varchar(255)
+email           varchar(255)
+password        varchar(255)
