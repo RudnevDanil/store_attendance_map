@@ -1,0 +1,62 @@
+body{
+    background-image: url(../images/background.jpg);
+    text-align:center;
+}
+
+#logo , #proj_name_line, #auth_block{
+    display: inline-block;
+}
+
+#logo_img, #logo_link{
+    height:70px;
+    width:70px;
+}
+
+#logo_link{
+    padding-right: 5%;
+}
+
+#auth_block{
+    padding-left: 5%;;
+}
+
+.auth_buttons{
+    margin: 10px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius:30px;
+    font-weight:900;
+}
+
+a{
+    color:black;
+     text-decoration: none;
+}
+
+.control_block{
+    margin: 10px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius:30px;
+    /*display: inline-block;*/
+    font-weight:900;
+}
+
+.form_button{
+    font-size: 100%;
+}
+
+input{
+    margin: 1px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius:30px;
+    display: inline-block;
+}
+
+#proj_name_line{
+    font-size:330%;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+/*.other_pages{}*/
