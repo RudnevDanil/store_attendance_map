@@ -3,6 +3,45 @@ body{
     text-align:center;
 }
 
+#worksheet_img{
+    width: 600px;
+    height: 330px;
+}
+
+li {
+    list-style-type: none;
+}
+ul {
+    padding-left: 0; 
+}
+
+.other_pages{
+    margin:20px;
+}
+
+#worksheet{
+    width: 600px;
+    display: inline-block;
+}
+
+#buttons{
+    height: 100%;
+    width: 40px;
+    display: inline-block;
+}
+
+button{
+    background:transparent;
+    padding: 0px;
+    border: none;
+    padding-right: 200px;
+}
+
+.button_img{
+    height: 40px;
+    width: 40px;
+}
+
 #logo , #proj_name_line, #auth_block{
     display: inline-block;
 }
