@@ -1,20 +1,72 @@
 <?php session_start();?>
 <head>
   <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
   <script src="DragManager.js"></script>
+  <script>var next_num_element = 5; var first_1 = true;var first_2 = true;var first_3 = true;var first_4 = true;</script>
   <link rel="stylesheet" href="dragDemo.css">
-  <script>
-    DragManager.onDragCancel = function(dragObject) {
-      dragObject.avatar.rollback();
+    <script>
+    DragManager.onDragCancel = function(dragObject)
+    {
+        //alert("onDragCancel");
+        alert('Out of the work area is not allowed!');
+        //dragObject.avatar.rollback();
     };
 
     DragManager.onDragEnd = function(dragObject, dropElem) {
-      dragObject.elem.style.display = 'none';
-      dropElem.classList.add('computer-smile');
-      setTimeout(function() {
-        dropElem.classList.remove('computer-smile');
-      }, 200);
+        //alert("onDragEnd");
+        var classes = String (dragObject.elem.classList);
+        var num_but = classes.charAt(classes.length - 1);
+        var is_on_worksheet = String(classes.substring(classes.length - 10, classes.length - 6));
+        var num_element = (Number(is_on_worksheet.charAt(1)))*100 + (Number(is_on_worksheet.charAt(2)))*10 + Number(is_on_worksheet.charAt(3));
+        var  does_we_need_add = (num_element >= next_num_element - 1);
+        if(((num_element == 1)&&(first_1 == true))||((num_element == 2)&&(first_2 == true))||((num_element == 3)&&(first_3 == true))||((num_element == 4)&&(first_4)))
+            does_we_need_add = true;
+        //alert(num_element);
+        if(does_we_need_add == true)
+        {
+            var next_num_element_str = "";
+                next_num_element_str = (next_num_element < 100)?"0":"";
+                next_num_element_str = (next_num_element < 10)?"00":next_num_element_str;
+                next_num_element_str = next_num_element_str + next_num_element;
+            next_num_element++;
+            if(num_but == '2')
+            {
+                $(".camera_but").append('<img class="droppable button_img draggable n' + next_num_element_str +' but_2" src="/images/camera.png" alt="camera" />');
+                if(first_1 == true)
+                    first_1 = false;
+                    //alert('='+next_num_element_str);
+            }
+            else if(num_but == '3')
+            {
+                $(".wall_but").append('<img class="droppable button_img draggable n' + next_num_element_str +' but_3" src="/images/wall.png" alt="wall" />');
+                if(first_2 == true)
+                    first_2 = false;
+            }
+            else if(num_but == '4')
+            {
+                $(".stelaj_but").append('<img class="droppable button_img draggable n' + next_num_element_str +' but_4" src="/images/stelaj.png" alt="stelaj" />');
+                if(first_3 == true)
+                    first_3 = false;
+            }
+            else if(num_but == '5')
+            {
+                $(".cassa_but").append('<img class="droppable button_img draggable n' + next_num_element_str +' but_5" src="/images/cassa.png" alt="cassa" />');
+                if(first_4 == true)
+                    first_4 = false;
+            }
+            else
+            {
+                alert('UNKNOWN');
+                alert(dragObject.elem.classList);
+            }
+        }
+            
+        
+        /*dragObject.elem.style.width = '80px'; 
+        dragObject.elem.style.height = '80px'; 
+        dragObject.elem.style.transform = 'rotate(45deg)'; */
     };
   </script>
 </head>
@@ -24,28 +76,24 @@
     <?php
     require_once("head.php");
     ?>
-    <div id="worksheet"><img id="worksheet_img" src="images/white.png" alt="worksheet"></div>
+    <div class="droppable worksheet"><img id="worksheet_img" src="images/white.png" alt="worksheet"></div>
     <div id="buttons">
         <ul>
-        <li><button type="button" class="button_1" value="button_1">
-            <img class="button_img draggable" src="/images/erase.png" alt="erase" />
-        </button></li>
-        <li><button type="button" class="button_2" value="button_2">
-            <img class="button_img draggable" src="/images/camera.png" alt="camera" />
-        </button></li>
-        <li><button type="button" class="button_3" value="button_3">
-            <img class="button_img draggable" src="/images/wall.png" alt="wall" />
-        </button></li>
-        <li><button type="button" class="button_4" value="button_4">
-            <img class="button_img draggable" src="/images/stelaj.png" alt="stelaj" />
-        </button></li>
-        <li><button type="button" class="button_5" value="button_5">
-            <img class="button_img draggable" src="/images/cassa.png" alt="cassa" />
-        </button></li>
+        <li><button type="button" class="button_2" value="button_2"><div class="camera_but">
+            <img class="droppable button_img draggable n001 but_2" src="/images/camera.png" alt="camera" />
+        </div></button></li>
+        <li><button type="button" class="button_3" value="button_3"><div class="wall_but">
+            <img class="droppable button_img draggable n002 but_3" src="/images/wall.png" alt="wall" />
+        </div></button></li>
+        <li><button type="button" class="button_4" value="button_4"><div class="stelaj_but">
+            <img class="droppable button_img draggable n003 but_4" src="/images/stelaj.png" alt="stelaj" />
+        </div></button></li>
+        <li><button type="button" class="button_5" value="button_5"><div class="cassa_but">
+            <img class="droppable button_img draggable n004 but_5" src="/images/cassa.png" alt="cassa" />
+        </div></button></li>
         </ul>
     </div>
-    <div class="computer droppable"></div>
-    
+
     <?php
     require_once("foot.php");
     ?>

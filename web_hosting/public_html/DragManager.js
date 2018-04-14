@@ -98,7 +98,7 @@ var DragManager = new function() {
     };
 
     // функция для отмены переноса
-    avatar.rollback = function() {
+    avatar.rollback = function() {//возвращение элемента обратно
       old.parent.insertBefore(avatar, old.nextSibling);
       avatar.style.position = old.position;
       avatar.style.left = old.left;
@@ -127,7 +127,7 @@ var DragManager = new function() {
 
     // показать переносимый элемент обратно
     dragObject.avatar.hidden = false;
-
+    
     if (elem == null) {
       // такое возможно, если курсор мыши "вылетел" за границу окна
       return null;
