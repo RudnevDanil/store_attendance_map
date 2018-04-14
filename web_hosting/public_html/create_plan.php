@@ -3,6 +3,7 @@
   <meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.polyfill.io/v1/polyfill.js?features=Element.prototype.closest"></script>
+  <script>var on_the_desk = [];on_the_desk[0]=0;var xPos = 0; var yPos = 0;</script>
   <script src="DragManager.js"></script>
   <script>var next_num_element = 5; var first_1 = true;var first_2 = true;var first_3 = true;var first_4 = true;</script>
   <link rel="stylesheet" href="dragDemo.css">
@@ -14,29 +15,37 @@
         //dragObject.avatar.rollback();
     };
 
-    DragManager.onDragEnd = function(dragObject, dropElem) {
+    DragManager.onDragEnd = function(dragObject, dropElem) 
+    {
         //alert("onDragEnd");
         var classes = String (dragObject.elem.classList);
         var num_but = classes.charAt(classes.length - 1);
+        
         var is_on_worksheet = String(classes.substring(classes.length - 10, classes.length - 6));
         var num_element = (Number(is_on_worksheet.charAt(1)))*100 + (Number(is_on_worksheet.charAt(2)))*10 + Number(is_on_worksheet.charAt(3));
-        var  does_we_need_add = (num_element >= next_num_element - 1);
+        var  does_we_need_add = (num_element >= next_num_element -1);
         if(((num_element == 1)&&(first_1 == true))||((num_element == 2)&&(first_2 == true))||((num_element == 3)&&(first_3 == true))||((num_element == 4)&&(first_4)))
             does_we_need_add = true;
         //alert(num_element);
+        on_the_desk[num_element]={width:40,height:40,rot:0,x_pos:xPos,y_pos:yPos,type:num_but};
+        on_the_desk[0] = num_but;
+        
+        $('#width_line').val(on_the_desk[on_the_desk[0]-1].width);
+        $('#height_line').val(on_the_desk[on_the_desk[0]-1].height);
+        $('#rotation_line').val(on_the_desk[on_the_desk[0]-1].rot);
+        
         if(does_we_need_add == true)
         {
             var next_num_element_str = "";
                 next_num_element_str = (next_num_element < 100)?"0":"";
                 next_num_element_str = (next_num_element < 10)?"00":next_num_element_str;
                 next_num_element_str = next_num_element_str + next_num_element;
-            next_num_element++;
+            ++next_num_element;
             if(num_but == '2')
             {
                 $(".camera_but").append('<img class="droppable button_img draggable n' + next_num_element_str +' but_2" src="/images/camera.png" alt="camera" />');
                 if(first_1 == true)
                     first_1 = false;
-                    //alert('='+next_num_element_str);
             }
             else if(num_but == '3')
             {
@@ -63,10 +72,23 @@
             }
         }
             
-        
-        /*dragObject.elem.style.width = '80px'; 
-        dragObject.elem.style.height = '80px'; 
-        dragObject.elem.style.transform = 'rotate(45deg)'; */
+        $( document ).ready(function() 
+        {
+            $(".update").click(
+        	    function()
+        		{
+        		    on_the_desk[on_the_desk[0]-1].width = $('#width_line').val();
+        		    dragObject.elem.style.width = $('#width_line').val() + 'px';
+        		    
+        		    on_the_desk[on_the_desk[0]-1].height = $('#height_line').val();
+        		    dragObject.elem.style.height = $('#height_line').val() + 'px';
+        		    
+        		    on_the_desk[on_the_desk[0]-1].rot = $('#rotation_line').val();
+        		    dragObject.elem.style.transform = 'rotate('+($('#rotation_line').val()) + 'deg)';
+        		    return false; 
+        	    }
+            );
+        });
     };
   </script>
 </head>
@@ -93,7 +115,26 @@
         </div></button></li>
         </ul>
     </div>
-
+    <form action="/change_element.php" method="POST">
+        <div class="change_element">
+            <table>
+                <tr>
+                    <th><div  class="some_text">Width:</div></th>
+                    <th><input id="width_line"  type="number" name="width" placeholder="Width"></th>
+                </tr>
+                <tr>
+                    <th><div class="some_text">Height:</div></th>
+                    <th><input id="height_line" type="number" name="height" placeholder="Height"></th>
+                </tr>
+                <tr>
+                    <th><div class="some_text">Rotation:</div></th>
+                    <th><input id="rotation_line" type="number" name="rotation" placeholder="Rotation"></th>
+                </tr>
+            </table>
+            
+    		<button class="control_block form_button update" type="button" name="do_change">Save changes!</button>
+        </div>
+    </form>
     <?php
     require_once("foot.php");
     ?>

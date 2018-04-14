@@ -25,7 +25,7 @@ var DragManager = new function() {
     // запомним, что элемент нажат на текущих координатах pageX/pageY
     dragObject.downX = e.pageX;
     dragObject.downY = e.pageY;
-
+    
     return false;
   }
 
@@ -122,6 +122,8 @@ var DragManager = new function() {
     // спрячем переносимый элемент
     dragObject.avatar.hidden = true;
 
+    xPos = event.clientX;
+    yPos = event.clientY;
     // получить самый вложенный элемент под курсором мыши
     var elem = document.elementFromPoint(event.clientX, event.clientY);
 

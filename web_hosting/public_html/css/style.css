@@ -2,7 +2,10 @@ body{
     background-image: url(../images/background.jpg);
     text-align:center;
 }
-
+table{
+    text-align:center;
+    margin:auto;
+}
 #worksheet_img{
     width: 600px;
     height: 330px;
@@ -25,6 +28,7 @@ ul {
 }
 
 #buttons{
+    max-height: 200px;
     height: 100%;
     width: 40px;
     display: inline-block;
@@ -69,7 +73,7 @@ button{
 
 a{
     color:black;
-     text-decoration: none;
+    text-decoration: none;
 }
 
 .control_block{
@@ -90,6 +94,17 @@ input{
     padding: 10px;
     border: 3px solid black;
     border-radius:30px;
+    display: inline-block;
+}
+
+.some_text{
+    font-size:200%;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.buttons_block{
+    width: 260px;
     display: inline-block;
 }
 
